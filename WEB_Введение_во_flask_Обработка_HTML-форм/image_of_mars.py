@@ -1,5 +1,4 @@
-from flask import Flask
-
+from flask import Flask, render_template
 
 app = Flask(__name__)
 
@@ -26,9 +25,7 @@ def promotion():
 
 @app.route('/image_mars')
 def image_mars():
-    with open("Mars.html", "r") as html:
-        html = html.read()
-    return html
+    return render_template("Mars.html")
 
 
 if __name__ == '__main__':
