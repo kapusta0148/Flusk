@@ -11,3 +11,10 @@ form.login_form {
 .center {
   text-align: center;
 }
+
+.carousel-item img {
+    max-height: 600px;
+    width: auto;
+    margin: 0 auto;
+    object-fit: cover;
+}
