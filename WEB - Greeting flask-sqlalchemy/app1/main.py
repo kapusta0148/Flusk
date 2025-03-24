@@ -1,6 +1,6 @@
 from flask import Flask
-
-from data.news import News
+import datetime
+from data.jobs import Jobs
 from data.users import User
 from data import db_session
 
@@ -18,7 +18,15 @@ def main():
     user.speciality = "Italian_WW2_plane"
     user.address = "Italy_Venice"
     user.email = "BomBombini@gusine.com"
+    job = Jobs()
+    job.team_leader = 1
+    job.job = "deployment of residential modules 1 and 2"
+    job.work_size = 15
+    job.collaborators = "2, 3"
+    job.start_date = datetime.datetime.now()
+    job.is_finished = False
     db_sess = db_session.create_session()
+    db_sess.add(job)
     db_sess.add(user)
     db_sess.commit()
 
