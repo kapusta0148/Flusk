@@ -26,10 +26,13 @@ def main():
     job.start_date = datetime.datetime.now()
     job.is_finished = False
     db_sess = db_session.create_session()
-    db_sess.add(job)
-    db_sess.add(user)
-    db_sess.commit()
+    #db_sess.add(job)
+    #db_sess.add(user)
+    #db_sess.commit()
+    for user in db_sess.query(User).all():
+        print(user)
 
 
 if __name__ == '__main__':
     main()
+
