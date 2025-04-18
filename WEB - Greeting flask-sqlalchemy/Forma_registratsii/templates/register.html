@@ -1,22 +1,76 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h2>Register Form</h2>
-  <form method="POST">
-    {{ form.hidden_tag() }}
-    {% if message %}
-      <p style="color: red;">{{ message }}</p>
-    {% endif %}
-    <p>{{ form.email.label }}<br>{{ form.email(size=32) }}</p>
-    <p>{{ form.password.label }}<br>{{ form.password(size=32) }}</p>
-    <p>{{ form.password_again.label }}<br>{{ form.password_again(size=32) }}</p>
-    <p>{{ form.surname.label }}<br>{{ form.surname(size=32) }}</p>
-    <p>{{ form.name.label }}<br>{{ form.name(size=32) }}</p>
-    <p>{{ form.age.label }}<br>{{ form.age() }}</p>
-    <p>{{ form.position.label }}<br>{{ form.position(size=32) }}</p>
-    <p>{{ form.speciality.label }}<br>{{ form.speciality(size=32) }}</p>
-    <p>{{ form.address.label }}<br>{{ form.address(size=64) }}</p>
-    <p>{{ form.about.label }}<br>{{ form.about(rows=4, cols=40) }}</p>
-    <p>{{ form.submit() }}</p>
-  </form>
+<div class="row justify-content-center">
+  <div class="col-md-8 col-lg-6">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h2 class="card-title mb-4 text-center">Регистрация</h2>
+        <form method="POST" novalidate>
+          {{ form.hidden_tag() }}
+
+          {% if message %}
+            <div class="alert alert-danger">{{ message }}</div>
+          {% endif %}
+
+          <div class="form-group">
+            {{ form.email.label(class="form-label") }}
+            {{ form.email(class="form-control", placeholder="Введите email") }}
+          </div>
+
+          <div class="form-group">
+            {{ form.password.label(class="form-label") }}
+            {{ form.password(class="form-control", placeholder="Пароль") }}
+          </div>
+
+          <div class="form-group">
+            {{ form.password_again.label(class="form-label") }}
+            {{ form.password_again(class="form-control", placeholder="Повторите пароль") }}
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              {{ form.surname.label(class="form-label") }}
+              {{ form.surname(class="form-control", placeholder="Фамилия") }}
+            </div>
+            <div class="form-group col-md-6">
+              {{ form.name.label(class="form-label") }}
+              {{ form.name(class="form-control", placeholder="Имя") }}
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-md-4">
+              {{ form.age.label(class="form-label") }}
+              {{ form.age(class="form-control", placeholder="Возраст") }}
+            </div>
+            <div class="form-group col-md-8">
+              {{ form.position.label(class="form-label") }}
+              {{ form.position(class="form-control", placeholder="Должность") }}
+            </div>
+          </div>
+
+          <div class="form-group">
+            {{ form.speciality.label(class="form-label") }}
+            {{ form.speciality(class="form-control", placeholder="Специальность") }}
+          </div>
+
+          <div class="form-group">
+            {{ form.address.label(class="form-label") }}
+            {{ form.address(class="form-control", placeholder="Адрес") }}
+          </div>
+
+          <div class="form-group">
+            {{ form.about.label(class="form-label") }}
+            {{ form.about(class="form-control", placeholder="Немного о себе", rows="3") }}
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block btn-lg">
+            {{ form.submit.label.text }}
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
