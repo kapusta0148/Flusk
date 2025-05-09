@@ -1,3 +1,5 @@
+import re
+
 translit_dict = {
     'а': 'a', 'А': 'A', 'б': 'b', 'Б': 'B', 'в': 'v', 'В': 'V', 'г': 'g', 'Г': 'G',
     'д': 'd', 'Д': 'D', 'е': 'e', 'Е': 'E', 'ё': 'yo', 'Ё': 'Yo', 'ж': 'zh', 'Ж': 'Zh',
@@ -11,12 +13,13 @@ translit_dict = {
 }
 
 def transliterate(text):
+    cleaned_text = re.sub(r'[@!#$%^&*(),:;.""?<>]', '', text)
     result = ''
-    for char in text:
+    for char in cleaned_text:
         result += translit_dict.get(char, char)
     return result
 
 if __name__ == "__main__":
-    word = input().replace('.', '')
+    word = input("Введите текст: ")
     translit_word = transliterate(word)
     print(f"{translit_word.replace(' ', '_')}")
