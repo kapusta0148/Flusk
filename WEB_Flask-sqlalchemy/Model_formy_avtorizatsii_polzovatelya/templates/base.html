@@ -14,9 +14,17 @@
 <body class="d-flex flex-column h-100">
 
   <header>
-    <nav class="navbar navbar-light bg-light">
-      <a class="navbar-brand" href="#">Миссия Колонизация Марса</a>
+    <nav class="navbar navbar-light bg-light justify-content-between">
+  <a class="navbar-brand" href="/">Миссия Колонизация Марса</a>
+  {% if current_user.is_authenticated %}
+    <span class="navbar-text">
+      Добро пожаловать, {{ current_user.name }}!
+    </span>
+  {% else %}
+    <a class="btn btn-outline-primary" href="/login">Войти</a>
+  {% endif %}
     </nav>
+
   </header>
 
   <main role="main" class="container my-4">
