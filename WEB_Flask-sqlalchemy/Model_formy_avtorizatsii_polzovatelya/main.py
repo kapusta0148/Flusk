@@ -16,17 +16,22 @@ login_manager.init_app(app)
 
 
 @app.route('/add_job', methods=['GET', 'POST'])
+@login_required
 def add_job():
     form = JobForm()
+    session = db_session.create_session()
+    form.team_leader.choices = [
+        (user.id, f"{user.name} {user.surname}") for user in session.query(User).all()
+    ]
+
     if form.validate_on_submit():
-        session = db_session.create_session()
         job = Jobs(
             team_leader=form.team_leader.data,
             job=form.job.data,
             work_size=form.work_size.data,
             collaborators=form.collaborators.data,
             start_date=form.start_date.data,
-            is_finished=form.is_finished.data
+            is_finished=form.is_finished.data,
         )
         session.add(job)
         session.commit()

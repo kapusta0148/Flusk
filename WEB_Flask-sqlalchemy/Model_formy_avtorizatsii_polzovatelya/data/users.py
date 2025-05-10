@@ -2,8 +2,9 @@ import datetime
 import sqlalchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
-
+from sqlalchemy import orm
 from .db_session import SqlAlchemyBase
+
 
 class User(SqlAlchemyBase, UserMixin):
     __tablename__ = 'users'
