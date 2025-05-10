@@ -98,9 +98,10 @@ def add_job():
 
 @app.route('/')
 def index():
-    db_sess = db_session.create_session()
-    jobs = db_sess.query(Jobs).all()
-    return render_template("work_log.html", jobs=jobs)
+    with db_session.create_session() as db_sess:
+        jobs = db_sess.query(Jobs).all()
+        return render_template("work_log.html", jobs=jobs)
+
 
 
 @login_manager.user_loader
