@@ -2,6 +2,11 @@
 {% block content %}
   {% if current_user.is_authenticated %}
     <h2>Works log</h2>
+
+    <div class="mb-4">
+      <a href="/add_job" class="btn btn-success">Добавить работу</a>
+    </div>
+
     {% for job in jobs %}
       <h5 class="mt-4">Action #{{ job.id }}</h5>
       <table class="table table-bordered" style="background-color: lavender;">
@@ -30,6 +35,15 @@
           </tr>
         </tbody>
       </table>
+
+      {% if current_user.id == job.team_leader or current_user.id == 1 %}
+        <div class="mb-4">
+          <a href="/jobs/{{ job.id }}/edit" class="btn btn-warning btn-sm">Изменить</a>
+          <form action="/jobs/{{ job.id }}/delete" method="post" style="display:inline;">
+            <button type="submit" class="btn btn-danger btn-sm">Удалить</button>
+          </form>
+        </div>
+      {% endif %}
     {% endfor %}
   {% else %}
     <h2 class="text-center">Войдите, чтобы увидеть список работ</h2>
