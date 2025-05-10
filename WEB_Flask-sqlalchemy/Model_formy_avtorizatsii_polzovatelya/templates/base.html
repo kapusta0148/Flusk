@@ -4,27 +4,27 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>{{ title if title else "Миссия Колонизация Марса" }}</title>
-
-  <link
-    rel="stylesheet"
-    href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-    integrity="sha384-Vkoo8×4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-    crossorigin="anonymous">
+  <link rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8×4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+        crossorigin="anonymous">
 </head>
 <body class="d-flex flex-column h-100">
-
   <header>
     <nav class="navbar navbar-light bg-light justify-content-between">
-  <a class="navbar-brand" href="/">Миссия Колонизация Марса</a>
-  {% if current_user.is_authenticated %}
-    <span class="navbar-text">
-      Добро пожаловать, {{ current_user.name }}!
-    </span>
-  {% else %}
-    <a class="btn btn-outline-primary" href="/login">Войти</a>
-  {% endif %}
+      <a class="navbar-brand" href="/">Миссия Колонизация Марса</a>
+      <div>
+        {% if current_user.is_authenticated %}
+          <span class="navbar-text mr-3">
+            Добро пожаловать, {{ current_user.name }}!
+          </span>
+          <a class="btn btn-outline-danger" href="/logout">Выйти</a>
+        {% else %}
+          <a class="btn btn-outline-primary mr-2" href="/login">Войти</a>
+          <a class="btn btn-outline-success" href="/register">Регистрация</a>
+        {% endif %}
+      </div>
     </nav>
-
   </header>
 
   <main role="main" class="container my-4">

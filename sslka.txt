@@ -1,0 +1,1 @@
+https://github.com/kapusta0148/Flusk/tree/main/WEB_Flask-sqlalchemy/Model_formy_avtorizatsii_polzovatelya
