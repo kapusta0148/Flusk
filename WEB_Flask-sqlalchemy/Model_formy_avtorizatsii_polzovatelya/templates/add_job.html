@@ -28,6 +28,11 @@
                         {{ form.collaborators.label(class="form-label") }}
                         {{ form.collaborators(class="form-control", placeholder="Сотрудники (через запятую)") }}
                     </div>
+
+                    <div class="form-group">
+                        {{ form.categories.label(class="form-label") }}
+                        {{ form.categories(class="form-control", multiple=true) }}
+                    </div>
                     
                     <div class="form-group">
                         {{ form.start_date.label(class="form-label") }}

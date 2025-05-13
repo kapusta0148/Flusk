@@ -1,11 +1,12 @@
 from flask_wtf import FlaskForm
 from wtforms import (PasswordField,
-                     StringField, TextAreaField, SelectField, IntegerField, DateTimeField, BooleanField, SubmitField)
+                     StringField, TextAreaField, SelectField, IntegerField, SelectMultipleField, DateTimeField, BooleanField, SubmitField)
 from wtforms.validators import DataRequired, EqualTo, Length, Email
 import datetime
 from data import db_session
 from data.jobs import Jobs
 from data.users import User
+from data.categories import Category
 
 
 class RegisterForm(FlaskForm):
@@ -37,13 +38,18 @@ class JobForm(FlaskForm):
     collaborators = StringField('Сотрудники (через запятую)', validators=[Length(max=255)])
     start_date = DateTimeField('Дата начала работы', default=datetime.datetime.now, format='%Y-%m-%d %H:%M:%S')
     is_finished = BooleanField('Завершена работа?')
+    categories = SelectMultipleField('Категории', coerce=int, validators=[DataRequired()])
     submit = SubmitField('Добавить работу')
 
     def __init__(self, *args, **kwargs):
         super(JobForm, self).__init__(*args, **kwargs)
         session = db_session.create_session()
+
         users = session.query(User).all()
         self.team_leader.choices = [(user.id, user.name) for user in users]
+
+        categories = session.query(Category).all()
+        self.categories.choices = [(category.id, category.name) for category in categories]
 
     def save_job(self):
         session = db_session.create_session()
@@ -55,6 +61,11 @@ class JobForm(FlaskForm):
             start_date=self.start_date.data,
             is_finished=self.is_finished.data
         )
+
+        for category_id in self.categories.data:
+            category = session.query(Category).get(category_id)
+            job.categories.append(category)
+
         session.add(job)
         session.commit()
 

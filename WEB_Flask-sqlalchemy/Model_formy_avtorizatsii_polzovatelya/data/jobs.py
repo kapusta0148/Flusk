@@ -1,6 +1,7 @@
 import sqlalchemy
 from sqlalchemy import orm
 from .db_session import SqlAlchemyBase
+from .association import association_table
 
 
 class Jobs(SqlAlchemyBase):
@@ -15,3 +16,4 @@ class Jobs(SqlAlchemyBase):
     is_finished = sqlalchemy.Column(sqlalchemy.Boolean, nullable=True)
 
     user = orm.relationship("User")
+    categories = orm.relationship("Category", secondary=association_table, back_populates="jobs")
