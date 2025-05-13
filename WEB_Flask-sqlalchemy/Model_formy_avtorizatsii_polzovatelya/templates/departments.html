@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+  {% if current_user.is_authenticated %}
+    <h2>Departments</h2>
+    <div class="mb-4">
+      <a href="/departments/add" class="btn btn-success">Добавить отдел</a>
+      <a href="/" class="btn btn-info">К работам</a>
+    </div>
+    {% for dept in departments %}
+      <h5 class="mt-4">Department #{{ dept.id }}</h5>
+      <table class="table table-bordered" style="background-color: lavender;">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Chief</th>
+            <th>Members</th>
+            <th>Email</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{ dept.title }}</td>
+            <td>{{ dept.user.surname }} {{ dept.user.name }}</td>
+            <td>{{ dept.members }}</td>
+            <td>{{ dept.email }}</td>
+          </tr>
+        </tbody>
+      </table>
+      {% if current_user.id == dept.chief or current_user.id == 1 %}
+        <div class="mb-4">
+          <a href="/departments/{{ dept.id }}" class="btn btn-warning btn-sm">Изменить</a>
+          <form action="/departments/{{ dept.id }}/delete" method="post" style="display:inline;">
+            <button type="submit" class="btn btn-danger btn-sm">Удалить</button>
+          </form>
+        </div>
+      {% endif %}
+    {% endfor %}
+  {% else %}
+    <h2 class="text-center">Войдите, чтобы увидеть список отделов</h2>
+  {% endif %}
+{% endblock %}

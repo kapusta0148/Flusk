@@ -2,6 +2,7 @@ import sqlalchemy
 from sqlalchemy import orm
 from .db_session import SqlAlchemyBase
 
+
 class Jobs(SqlAlchemyBase):
     __tablename__ = 'jobs'
 

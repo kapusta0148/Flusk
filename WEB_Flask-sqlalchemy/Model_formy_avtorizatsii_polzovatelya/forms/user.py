@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import (PasswordField,
                      StringField, TextAreaField, SelectField, IntegerField, DateTimeField, BooleanField, SubmitField)
-from wtforms.validators import DataRequired, EqualTo, Length
+from wtforms.validators import DataRequired, EqualTo, Length, Email
 import datetime
 from data import db_session
 from data.jobs import Jobs
@@ -57,3 +57,17 @@ class JobForm(FlaskForm):
         )
         session.add(job)
         session.commit()
+
+
+class DepartmentForm(FlaskForm):
+    title = StringField('Название отдела', validators=[DataRequired(), Length(min=2, max=100)])
+    chief = SelectField('Руководитель отдела', coerce=int, validators=[DataRequired()])
+    members = StringField('Список участников (ID через запятую)', validators=[Length(max=255)])
+    email = StringField('Контактный e-mail', validators=[DataRequired(), Email()])
+    submit = SubmitField('Сохранить')
+
+    def __init__(self, *args, **kwargs):
+        super(DepartmentForm, self).__init__(*args, **kwargs)
+        with db_session.create_session() as session:
+            users = session.query(User).all()
+            self.chief.choices = [(user.id, f"{user.surname} {user.name}") for user in users]
